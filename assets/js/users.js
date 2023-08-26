@@ -26,14 +26,6 @@ let loading = true,
 })();
 
 function renderUsers() {
-    
-
-    `<div class="card-offline">
-        <img src="test.svg" alt="user image">
-        <p>name</p>
-        <p>email</p>
-        <span class="circle-offline"></span>
-    </div>`
 
     onlineUsers.forEach(user => {
         onlineSection.innerHTML += `<div class="card-online">
