@@ -22,9 +22,34 @@ let loading = true,
     });
 
     renderUsers();
-
+    // console.log(onlineSection);
 })();
 
 function renderUsers() {
     
+
+    `<div class="card-offline">
+        <img src="test.svg" alt="user image">
+        <p>name</p>
+        <p>email</p>
+        <span class="circle-offline"></span>
+    </div>`
+
+    onlineUsers.forEach(user => {
+        onlineSection.innerHTML += `<div class="card-online">
+                                        <img src="/assets/storage/avatar.svg" alt="user image">
+                                        <p>${user.name.first}</p>
+                                        <p>${user.email}</p>
+                                        <span class="circle-online"></span>
+                                    </div>`
+    });
+
+    offlineUsers.forEach(user => {
+        offlineSection.innerHTML += `<div class="card-offline">
+                                        <img src="/assets/storage/avatar.svg" alt="user image">
+                                        <p>${user.name.first}</p>
+                                        <p>${user.email}</p>
+                                        <span class="circle-offline"></span>
+                                    </div>`
+    });
 }
