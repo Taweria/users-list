@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap');
+
+:root {
+    --green: #A9E190;
+    --background-cells: #9EB3C2;
+    --darkgrey: #7B95A7;
+    --neutralgrey: #ABB3B9;
+    --background-page: #FFFFFF;
+    --text: #1E1E1E;
+}
+
+
+body{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text);
+    background-color: var(--background-page);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Oswald', sans-serif;
+}
