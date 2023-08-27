@@ -74,7 +74,7 @@ main{
     width: 15px;
     aspect-ratio: 1/1;
     border-radius: 100%;
-    border: 1px var(--darkgrey) solid;
+    border: 2px var(--darkgrey) solid;
     margin: auto;
 }
 
