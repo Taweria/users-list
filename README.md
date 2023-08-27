@@ -12,6 +12,8 @@
 
 I did this project during my training at BeCode.org, to further my learning about git/github, html, css/sass, js and skeleton load.
 
+Figma: https://www.figma.com/file/mF4Jyqhra08mykG8OhGmIZ/Untitled?type=design&node-id=0%3A1&mode=design&t=zhEj4jIN2p3o8bML-1
+
 # Used languages
 
 * HTML
