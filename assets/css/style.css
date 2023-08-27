@@ -23,3 +23,62 @@ body{
 h1, h2, h3, h4, h5, h6{
     font-family: 'Oswald', sans-serif;
 }
+
+h1{
+    color: var(--neutralgrey);
+}
+
+h2, h3, h4, h5, h6{
+    color: var(--darkgrey);
+}
+
+main{
+    width: 90%;
+    margin: 0 auto;
+}
+
+#online-section{
+    margin-top: 3rem;
+}
+
+#online-users, #offline-users{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 30vh;
+    /* border: #1E1E1E 1px dashed; */
+    overflow: hidden;
+}
+
+#online-users{
+    height: 40vh;
+}
+
+.card-online, .card-offline{
+    display: grid;
+    grid-template-columns: 1fr 3fr 4fr 1fr;
+    margin: 1rem 2rem;
+    gap: 1rem;
+    background-color: var(--background-cells);
+    border-radius: 25px;
+    width: 26%;
+    padding: 1rem 2rem;
+    
+}
+
+.card-offline{
+    opacity: 50%;
+}
+
+.circle-online, .circle-offline{
+    width: 15px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border: 1px var(--darkgrey) solid;
+    margin: auto;
+}
+
+.circle-online{
+    background-color: var(--green);
+}
+
