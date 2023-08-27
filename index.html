@@ -9,78 +9,51 @@
 <body>
     <main>
         <h1> Users Status </h1>
-
+        
         <section id="online-section">
             <h2 id="online"> Online </h2>
             
-            <section id="online-users">
+            <div class="slider">
+                <button id="online-left">
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m13.789 7.155c.141-.108.3-.157.456-.157.389 0 .755.306.755.749v8.501c0 .445-.367.75-.755.75-.157 0-.316-.05-.457-.159-1.554-1.203-4.199-3.252-5.498-4.258-.184-.142-.29-.36-.29-.592 0-.23.107-.449.291-.591 1.299-1.002 3.945-3.044 5.498-4.243z"/>
+                    </svg>
+                </button>
+                <section id="online-users">
 
-            </section>
+                </section>
+                <button id="online-right">
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m10.211 7.155c-.141-.108-.3-.157-.456-.157-.389 0-.755.306-.755.749v8.501c0 .445.367.75.755.75.157 0 .316-.05.457-.159 1.554-1.203 4.199-3.252 5.498-4.258.184-.142.29-.36.29-.592 0-.23-.107-.449-.291-.591-1.299-1.002-3.945-3.044-5.498-4.243z"/>
+                    </svg>
+                </button>
+            </div>
         </section>
-
+        
+        
         <hr>
 
         <section id="offline-section">
             <h2 id="offline"> Offline </h2>
 
-            <section id="offline-users">
-                
-            </section>
+            <div class="slider">
+                <button id="offline-left"> 
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m13.789 7.155c.141-.108.3-.157.456-.157.389 0 .755.306.755.749v8.501c0 .445-.367.75-.755.75-.157 0-.316-.05-.457-.159-1.554-1.203-4.199-3.252-5.498-4.258-.184-.142-.29-.36-.29-.592 0-.23.107-.449.291-.591 1.299-1.002 3.945-3.044 5.498-4.243z"/>
+                    </svg>
+                </button>
+                <section id="offline-users">
+
+                </section>
+                <button id="offline-right">
+                    <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m10.211 7.155c-.141-.108-.3-.157-.456-.157-.389 0-.755.306-.755.749v8.501c0 .445.367.75.755.75.157 0 .316-.05.457-.159 1.554-1.203 4.199-3.252 5.498-4.258.184-.142.29-.36.29-.592 0-.23-.107-.449-.291-.591-1.299-1.002-3.945-3.044-5.498-4.243z"/>
+                    </svg>
+                </button>
+            </div>
         </section>
 
     </main>
-    <script type="text/javascript">
-        let loading = true,
-            users = [],
-            filterValue = 'abcdefghijklmnopqr'
-            onlineSection = document.getElementById("online-users"),
-            onlineUsers = [],
-            offlineSection = document.getElementById("offline-users"),
-            offlineUsers = [];
-
-        (async function getUsers() {
-            const response = await fetch("https://randomuser.me/api/?results=50");
-            users = await response.json();
-            users = users.results;
-            loading = false;
-            
-            users.forEach(user => {
-                if (user.gender == 'female') {
-                    onlineUsers.push(user);
-                }
-                else {
-                    offlineUsers.push(user);
-                }
-            });
-
-            renderUsers();
-            // console.log(onlineSection);
-        })();
-
-        function renderUsers() {
-
-            let avatar = `<svg width="43" height="46" viewBox="0 0 43 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.3308 14.375C12.3308 17.0437 13.3095 19.6032 15.0517 21.4903C16.7938 23.3773 19.1567 24.4375 21.6204 24.4375C24.0842 24.4375 26.4471 23.3773 28.1892 21.4903C29.9314 19.6032 30.9101 17.0437 30.9101 14.375C30.9101 11.7063 29.9314 9.14682 28.1892 7.25974C26.4471 5.37265 24.0842 4.3125 21.6204 4.3125C19.1567 4.3125 16.7938 5.37265 15.0517 7.25974C13.3095 9.14682 12.3308 11.7063 12.3308 14.375ZM34.8913 41.6875H7.02246C6.6705 41.6875 6.33295 41.536 6.08407 41.2665C5.83519 40.9969 5.69537 40.6312 5.69537 40.25V35.9375C5.69537 34.0313 6.39446 32.2031 7.63885 30.8552C8.88324 29.5073 10.571 28.75 12.3308 28.75H30.9101C32.6699 28.75 34.3577 29.5073 35.602 30.8552C36.8464 32.2031 37.5455 34.0313 37.5455 35.9375V40.25C37.5455 40.6312 37.4057 40.9969 37.1568 41.2665C36.908 41.536 36.5704 41.6875 36.2184 41.6875H34.8913Z" fill="#1E1E1E"/>
-                        </svg>`;  
-
-            onlineUsers.forEach(user => {
-                onlineSection.innerHTML += `<div class="card-online">
-                                                ${avatar}
-                                                <p>${user.name.first}</p>
-                                                <p>${user.email}</p>
-                                                <span class="circle-online"></span>
-                                            </div>`
-            });
-
-            offlineUsers.forEach(user => {
-                offlineSection.innerHTML += `<div class="card-offline">
-                                                ${avatar}
-                                                <p>${user.name.first}</p>
-                                                <p>${user.email}</p>
-                                                <span class="circle-offline"></span>
-                                            </div>`
-            });
-        }
-    </script>
+    <script src="/assets/js/users.js"></script>
 </body>
 </html>

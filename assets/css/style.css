@@ -54,6 +54,7 @@ main{
     height: 40vh;
 }
 
+
 .card-online, .card-offline{
     display: grid;
     grid-template-columns: 1fr 3fr 4fr 1fr;
@@ -61,7 +62,7 @@ main{
     gap: 1rem;
     background-color: var(--background-cells);
     border-radius: 25px;
-    width: 26%;
+    width: 25.5%;
     padding: 1rem 2rem;
     
 }
@@ -82,3 +83,28 @@ main{
     background-color: var(--green);
 }
 
+.slider{
+    display: flex;
+    align-content: center;
+}
+
+#online-left svg, #online-right svg, #offline-left svg, #offline-right svg{
+    width: 50px;
+    height: 50px;
+}
+
+#online-left svg:hover, #online-right svg:hover, #offline-left svg:hover, #offline-right svg:hover{
+    fill: var(--neutralgrey);
+    transform: scale(1.5);
+    transition: all 0.5s ease-in-out;
+}
+
+#online-left, #online-right, #offline-left, #offline-right{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+button{
+    z-index: 99;
+}

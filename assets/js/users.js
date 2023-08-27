@@ -5,6 +5,8 @@ let loading = true,
     onlineUsers = [],
     offlineSection = document.getElementById("offline-users"),
     offlineUsers = [],
+    
+
 
 (async function getUsers() {
     const response = await fetch("https://randomuser.me/api/?results=50");
@@ -45,3 +47,48 @@ function renderUsers() {
                                     </div>`
     });
 }
+
+let sliderPositionOnline = 1,
+    sliderPositionOffline = 1,
+    sliderCountOnline = onlineUsers.length/9,
+    sliderCountOffline = offlineUsers.length/6,
+    offsetValue = 200,
+    onlineRight = document.getElementById("online-right"),
+    onlineLeft = document.getElementById("online-left"),
+    offlineRight = document.getElementById("offline-right"),
+    offlineLeft = document.getElementById("offline-left");
+    buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
+
+buttonList.forEach(button => {
+    button.addEventListener("click", () => {
+        if (button == onlineRight) {
+            sliderPositionOnline++;
+            renderSlider('online', sliderPositionOnline);
+        }
+        else if (button == onlineLeft) {
+            sliderPositionOnline--;
+        }
+        else if (button == offlineRight) {
+            sliderPositionOffline++;
+        }
+        else if (button == offlineLeft) {
+            sliderPositionOffline--;
+        }
+    });
+});
+
+function renderSlider(sliderName, sliderPosition) {
+    switch (sliderName) {
+        case 'online':
+            
+            let sliderContent = onlineSection.querySelectorAll(".card-online");
+            sliderContent.forEach(card => {
+                card.style.marginLeft = `-${sliderPosition * offsetValue}px`;
+            });
+            break;
+        case 'offline':
+            
+            break;
+    }
+}
+    
