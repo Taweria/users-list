@@ -26,7 +26,39 @@ let loading = true,
     document.getElementById("online").innerHTML += ` (${onlineUsers.length})`;
     document.getElementById("offline").innerHTML += ` (${offlineUsers.length})`;
     renderUsers();
-    // console.log(onlineSection);
+
+    
+    let sliderPositionOnline = 1,
+    sliderPositionOffline = 1,
+    sliderCountOnline = Math.ceil(onlineUsers.length/9),
+    sliderCountOffline = Math.ceil(offlineUsers.length/6),
+
+    offsetValue = 2000,
+    onlineRight = document.getElementById("online-right"),
+    onlineLeft = document.getElementById("online-left"),
+    offlineRight = document.getElementById("offline-right"),
+    offlineLeft = document.getElementById("offline-left");
+    buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
+
+    buttonList.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button == onlineRight) {
+                sliderPositionOnline++;
+                renderSlider('online', sliderPositionOnline, sliderCountOnline, offsetValue);
+            }
+            else if (button == onlineLeft) {
+                sliderPositionOnline--;
+                renderSlider('online', sliderPositionOnline, sliderCountOnline, offsetValue);
+            }
+            else if (button == offlineRight) {
+                sliderPositionOffline++;
+            }
+            else if (button == offlineLeft) {
+                sliderPositionOffline--;
+            }
+        });
+    });
+
 })();
 
 function renderUsers() {
@@ -50,38 +82,7 @@ function renderUsers() {
     });
 }
 
-let sliderPositionOnline = 1,
-    sliderPositionOffline = 1,
-    sliderCountOnline = Math.ceil(onlineUsers.length/9),
-    sliderCountOffline = Math.ceil(offlineUsers.length/6),
-
-    offsetValue = 2000,
-    onlineRight = document.getElementById("online-right"),
-    onlineLeft = document.getElementById("online-left"),
-    offlineRight = document.getElementById("offline-right"),
-    offlineLeft = document.getElementById("offline-left");
-    buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
-
-buttonList.forEach(button => {
-    button.addEventListener("click", () => {
-        if (button == onlineRight) {
-            sliderPositionOnline++;
-            renderSlider('online', sliderPositionOnline);
-        }
-        else if (button == onlineLeft) {
-            sliderPositionOnline--;
-            renderSlider('online', sliderPositionOnline);
-        }
-        else if (button == offlineRight) {
-            sliderPositionOffline++;
-        }
-        else if (button == offlineLeft) {
-            sliderPositionOffline--;
-        }
-    });
-});
-
-function renderSlider(sliderName, sliderPosition) {
+function renderSlider(sliderName, sliderPosition, sliderCount, offsetValue) {
     switch (sliderName) {
         case 'online':
             
@@ -91,7 +92,7 @@ function renderSlider(sliderName, sliderPosition) {
             //     card.style.marginLeft = `-${sliderPosition * offsetValue}px`;
             // });
 
-            if (sliderPosition < sliderCountOnline) {
+            if (sliderPosition < sliderCount) {
                 movedElement = sliderPosition * 3;
             }
 
