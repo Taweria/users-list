@@ -23,6 +23,8 @@ let loading = true,
         }
     });
 
+    document.getElementById("online").innerHTML += ` (${onlineUsers.length})`;
+    document.getElementById("offline").innerHTML += ` (${offlineUsers.length})`;
     renderUsers();
     // console.log(onlineSection);
 })();
@@ -31,7 +33,7 @@ function renderUsers() {
 
     onlineUsers.forEach(user => {
         onlineSection.innerHTML += `<div class="card-online">
-                                        <img src="/assets/storage/avatar.svg" alt="user image">
+                                        <p>${onlineUsers.indexOf(user)}</p>
                                         <p>${user.name.first}</p>
                                         <p>${user.email}</p>
                                         <span class="circle-online"></span>
@@ -50,9 +52,10 @@ function renderUsers() {
 
 let sliderPositionOnline = 1,
     sliderPositionOffline = 1,
-    sliderCountOnline = onlineUsers.length/9,
-    sliderCountOffline = offlineUsers.length/6,
-    offsetValue = 200,
+    sliderCountOnline = Math.ceil(onlineUsers.length/9),
+    sliderCountOffline = Math.ceil(offlineUsers.length/6),
+
+    offsetValue = 2000,
     onlineRight = document.getElementById("online-right"),
     onlineLeft = document.getElementById("online-left"),
     offlineRight = document.getElementById("offline-right"),
@@ -67,6 +70,7 @@ buttonList.forEach(button => {
         }
         else if (button == onlineLeft) {
             sliderPositionOnline--;
+            renderSlider('online', sliderPositionOnline);
         }
         else if (button == offlineRight) {
             sliderPositionOffline++;
@@ -81,14 +85,23 @@ function renderSlider(sliderName, sliderPosition) {
     switch (sliderName) {
         case 'online':
             
-            let sliderContent = onlineSection.querySelectorAll(".card-online");
-            sliderContent.forEach(card => {
-                card.style.marginLeft = `-${sliderPosition * offsetValue}px`;
-            });
-            break;
+            let sliderContent = onlineSection.querySelectorAll(".card-online"),
+                movedElement  = 3;
+            // sliderContent.forEach(card => {
+            //     card.style.marginLeft = `-${sliderPosition * offsetValue}px`;
+            // });
+
+            if (sliderPosition < sliderCountOnline) {
+                movedElement = sliderPosition * 3;
+            }
+
+            for (let i=0; i<movedElement; i++){
+                sliderContent[i].style.marginLeft = `-${sliderPosition * offsetValue}px`;
+            }
+        break;
+
         case 'offline':
             
-            break;
+        break;
     }
 }
-    

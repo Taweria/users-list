@@ -64,6 +64,7 @@ main{
     border-radius: 25px;
     width: 25.5%;
     padding: 1rem 2rem;
+    transition-duration: 0.6s;
     
 }
 
