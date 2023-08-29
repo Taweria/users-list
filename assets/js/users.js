@@ -21,27 +21,97 @@ let loading = true,
         }
     });
 
+    document.getElementById("online").innerHTML += ` (${onlineUsers.length})`;
+    document.getElementById("offline").innerHTML += ` (${offlineUsers.length})`;
     renderUsers();
-    // console.log(onlineSection);
+    
+    let sliderPositionOnline = 0,
+        sliderPositionOffline = 0,
+        sliderCountOnline = Math.ceil(onlineUsers.length/9),
+        sliderCountOffline = Math.ceil(offlineUsers.length/6),
+        onlineRight = document.getElementById("online-right"),
+        onlineLeft = document.getElementById("online-left"),
+        offlineRight = document.getElementById("offline-right"),
+        offlineLeft = document.getElementById("offline-left");
+        buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
+
+    buttonList.forEach(button => {
+        button.addEventListener("click", () => {
+            if (button == onlineRight) {
+                if (sliderPositionOnline == (sliderCountOnline-1)) {
+                    sliderPositionOnline = 0;
+                }
+                else {
+                    sliderPositionOnline++;
+                }
+                renderSlider('online', sliderPositionOnline);
+            }
+            else if (button == onlineLeft) {
+                if (sliderPositionOnline > 0) {
+                    sliderPositionOnline--;
+                }
+                else {
+                    sliderPositionOnline = (sliderCountOnline-1);
+                }
+                renderSlider('online', sliderPositionOnline);
+            }
+            else if (button == offlineRight) {
+                if (sliderPositionOffline == (sliderCountOffline-1)) {
+                    sliderPositionOffline = 0;
+                }
+                else {
+                    sliderPositionOffline++;
+                }
+                renderSlider('offline', sliderPositionOffline);
+            }
+            else if (button == offlineLeft) {
+                if (sliderPositionOffline > 0) {
+                    sliderPositionOffline--;
+                }
+                else {
+                    sliderPositionOffline = (sliderCountOffline-1);
+                }
+                renderSlider('offline', sliderPositionOffline);
+            }
+        });
+    });
+
 })();
 
 function renderUsers() {
 
     onlineUsers.forEach(user => {
-        onlineSection.innerHTML += `<div class="card-online">
-                                        <img src="/assets/storage/avatar.svg" alt="user image">
-                                        <p>${user.name.first}</p>
-                                        <p>${user.email}</p>
-                                        <span class="circle-online"></span>
-                                    </div>`
+        onlineSection.querySelector(".overflow-content").innerHTML += `<div class="card-online">
+                                                                            <p>${onlineUsers.indexOf(user)}</p>
+                                                                            <p>${user.name.first}</p>
+                                                                            <p>${user.email}</p>
+                                                                            <span class="circle-online"></span>
+                                                                        </div>`
     });
 
     offlineUsers.forEach(user => {
-        offlineSection.innerHTML += `<div class="card-offline">
-                                        <img src="/assets/storage/avatar.svg" alt="user image">
-                                        <p>${user.name.first}</p>
-                                        <p>${user.email}</p>
-                                        <span class="circle-offline"></span>
-                                    </div>`
+        offlineSection.querySelector(".overflow-content").innerHTML += `<div class="card-offline">
+                                                                            <img src="/assets/storage/avatar.svg" alt="user image">
+                                                                            <p>${user.name.first}</p>
+                                                                            <p>${user.email}</p>
+                                                                            <span class="circle-offline"></span>
+                                                                        </div>`
     });
+}
+
+function renderSlider(name, position) {
+    
+    let scrollIndex = 0;
+
+    switch (name) {
+        case 'online':
+            scrollIndex = position * 1620;
+            onlineSection.querySelector(".overflow-content").style.transform = `translateX(-${scrollIndex}px)`;
+            break;
+
+        case 'offline':
+            scrollIndex = position * 1570;
+            offlineSection.querySelector(".overflow-content").style.transform = `translateX(-${scrollIndex}px)`;
+            break;
+    }
 }
