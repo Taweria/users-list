@@ -5,8 +5,6 @@ let loading = true,
     onlineUsers = [],
     offlineSection = document.getElementById("offline-users"),
     offlineUsers = [],
-    
-
 
 (async function getUsers() {
     const response = await fetch("https://randomuser.me/api/?results=50");
@@ -26,35 +24,54 @@ let loading = true,
     document.getElementById("online").innerHTML += ` (${onlineUsers.length})`;
     document.getElementById("offline").innerHTML += ` (${offlineUsers.length})`;
     renderUsers();
-
     
-    let sliderPositionOnline = 1,
-    sliderPositionOffline = 1,
-    sliderCountOnline = Math.ceil(onlineUsers.length/9),
-    sliderCountOffline = Math.ceil(offlineUsers.length/6),
-
-    offsetValue = 2000,
-    onlineRight = document.getElementById("online-right"),
-    onlineLeft = document.getElementById("online-left"),
-    offlineRight = document.getElementById("offline-right"),
-    offlineLeft = document.getElementById("offline-left");
-    buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
+    let sliderPositionOnline = 0,
+        sliderPositionOffline = 0,
+        sliderCountOnline = Math.ceil(onlineUsers.length/9),
+        sliderCountOffline = Math.ceil(offlineUsers.length/6),
+        onlineRight = document.getElementById("online-right"),
+        onlineLeft = document.getElementById("online-left"),
+        offlineRight = document.getElementById("offline-right"),
+        offlineLeft = document.getElementById("offline-left");
+        buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
 
     buttonList.forEach(button => {
         button.addEventListener("click", () => {
             if (button == onlineRight) {
-                sliderPositionOnline++;
-                renderSlider('online', sliderPositionOnline, sliderCountOnline, offsetValue);
+                if (sliderPositionOnline == (sliderCountOnline-1)) {
+                    sliderPositionOnline = 0;
+                }
+                else {
+                    sliderPositionOnline++;
+                }
+                renderSlider('online', sliderPositionOnline);
             }
             else if (button == onlineLeft) {
-                sliderPositionOnline--;
-                renderSlider('online', sliderPositionOnline, sliderCountOnline, offsetValue);
+                if (sliderPositionOnline > 0) {
+                    sliderPositionOnline--;
+                }
+                else {
+                    sliderPositionOnline = (sliderCountOnline-1);
+                }
+                renderSlider('online', sliderPositionOnline);
             }
             else if (button == offlineRight) {
-                sliderPositionOffline++;
+                if (sliderPositionOffline == (sliderCountOffline-1)) {
+                    sliderPositionOffline = 0;
+                }
+                else {
+                    sliderPositionOffline++;
+                }
+                renderSlider('offline', sliderPositionOffline);
             }
             else if (button == offlineLeft) {
-                sliderPositionOffline--;
+                if (sliderPositionOffline > 0) {
+                    sliderPositionOffline--;
+                }
+                else {
+                    sliderPositionOffline = (sliderCountOffline-1);
+                }
+                renderSlider('offline', sliderPositionOffline);
             }
         });
     });
@@ -64,45 +81,37 @@ let loading = true,
 function renderUsers() {
 
     onlineUsers.forEach(user => {
-        onlineSection.innerHTML += `<div class="card-online">
-                                        <p>${onlineUsers.indexOf(user)}</p>
-                                        <p>${user.name.first}</p>
-                                        <p>${user.email}</p>
-                                        <span class="circle-online"></span>
-                                    </div>`
+        onlineSection.querySelector(".overflow-content").innerHTML += `<div class="card-online">
+                                                                            <p>${onlineUsers.indexOf(user)}</p>
+                                                                            <p>${user.name.first}</p>
+                                                                            <p>${user.email}</p>
+                                                                            <span class="circle-online"></span>
+                                                                        </div>`
     });
 
     offlineUsers.forEach(user => {
-        offlineSection.innerHTML += `<div class="card-offline">
-                                        <img src="/assets/storage/avatar.svg" alt="user image">
-                                        <p>${user.name.first}</p>
-                                        <p>${user.email}</p>
-                                        <span class="circle-offline"></span>
-                                    </div>`
+        offlineSection.querySelector(".overflow-content").innerHTML += `<div class="card-offline">
+                                                                            <img src="/assets/storage/avatar.svg" alt="user image">
+                                                                            <p>${user.name.first}</p>
+                                                                            <p>${user.email}</p>
+                                                                            <span class="circle-offline"></span>
+                                                                        </div>`
     });
 }
 
-function renderSlider(sliderName, sliderPosition, sliderCount, offsetValue) {
-    switch (sliderName) {
+function renderSlider(name, position) {
+    
+    let scrollIndex = 0;
+
+    switch (name) {
         case 'online':
-            
-            let sliderContent = onlineSection.querySelectorAll(".card-online"),
-                movedElement  = 3;
-            // sliderContent.forEach(card => {
-            //     card.style.marginLeft = `-${sliderPosition * offsetValue}px`;
-            // });
-
-            if (sliderPosition < sliderCount) {
-                movedElement = sliderPosition * 3;
-            }
-
-            for (let i=0; i<movedElement; i++){
-                sliderContent[i].style.marginLeft = `-${sliderPosition * offsetValue}px`;
-            }
-        break;
+            scrollIndex = position * 1620;
+            onlineSection.querySelector(".overflow-content").style.transform = `translateX(-${scrollIndex}px)`;
+            break;
 
         case 'offline':
-            
-        break;
+            scrollIndex = position * 1570;
+            offlineSection.querySelector(".overflow-content").style.transform = `translateX(-${scrollIndex}px)`;
+            break;
     }
 }
