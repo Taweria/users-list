@@ -5,7 +5,6 @@ let loading = true,
     onlineUsers = [],
     offlineSection = document.getElementById("offline-users"),
     offlineUsers = [],
-    
 
 
 (async function getUsers() {
@@ -23,9 +22,26 @@ let loading = true,
         }
     });
 
+    const onlineSlider = new Slider("#online-users")
+    const offlineSlider = new Slider("#offine-users")
+
     document.getElementById("online").innerHTML += ` (${onlineUsers.length})`;
     document.getElementById("offline").innerHTML += ` (${offlineUsers.length})`;
-    renderUsers();
+    
+    console.log(onlineUsers);
+    onlineUsers.forEach(user => {
+        console.log(user)
+        onlineSlider.addContent("online", [user.name.first, user.email])
+    });
+
+    offlineUsers.forEach(user => {
+        offlineSection.innerHTML += `<div class="card-offline">
+                                        <img src="/assets/storage/avatar.svg" alt="user image">
+                                        <p>${user.name.first}</p>
+                                        <p>${user.email}</p>
+                                        <span class="circle-offline"></span>
+                                    </div>`
+    });
 
     
     let sliderPositionOnline = 1,
@@ -61,27 +77,6 @@ let loading = true,
 
 })();
 
-function renderUsers() {
-
-    onlineUsers.forEach(user => {
-        onlineSection.innerHTML += `<div class="card-online">
-                                        <p>${onlineUsers.indexOf(user)}</p>
-                                        <p>${user.name.first}</p>
-                                        <p>${user.email}</p>
-                                        <span class="circle-online"></span>
-                                    </div>`
-    });
-
-    offlineUsers.forEach(user => {
-        offlineSection.innerHTML += `<div class="card-offline">
-                                        <img src="/assets/storage/avatar.svg" alt="user image">
-                                        <p>${user.name.first}</p>
-                                        <p>${user.email}</p>
-                                        <span class="circle-offline"></span>
-                                    </div>`
-    });
-}
-
 function renderSlider(sliderName, sliderPosition, sliderCount, offsetValue) {
     switch (sliderName) {
         case 'online':
@@ -104,5 +99,23 @@ function renderSlider(sliderName, sliderPosition, sliderCount, offsetValue) {
         case 'offline':
             
         break;
+    }
+}
+
+class Slider {
+
+    constructor(name) {
+      this.name = name;
+      this.container = document.querySelector(name);
+    }
+
+    addContent(contentName, data) {
+
+        this.container.innerHTML += `<div class="card-${contentName}">
+                                        <p>${onlineUsers.indexOf(user)}</p>
+                                        <p>${data[0]}</p>
+                                        <p>${data[1]}</p>
+                                        <span class="circle-${contentName}"></span>
+                                    </div>`
     }
 }
