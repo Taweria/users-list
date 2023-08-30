@@ -84,7 +84,7 @@ function renderUsers() {
 
     onlineUsers.forEach(user => {
         onlineSection.querySelector(".overflow-content").innerHTML += `<div class="card-online">
-                                                                            <img src="/assets/storage/avatar.svg" alt="user image">
+                                                                            <img src="./assets/storage/avatar.svg" alt="user image">
                                                                             <p>${user.name.first}</p>
                                                                             <p>${user.email}</p>
                                                                             <span class="circle-online"></span>
@@ -93,7 +93,7 @@ function renderUsers() {
 
     offlineUsers.forEach(user => {
         offlineSection.querySelector(".overflow-content").innerHTML += `<div class="card-offline">
-                                                                            <img src="/assets/storage/avatar.svg" alt="user image">
+                                                                            <img src="./assets/storage/avatar.svg" alt="user image">
                                                                             <p>${user.name.first}</p>
                                                                             <p>${user.email}</p>
                                                                             <span class="circle-offline"></span>
