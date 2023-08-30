@@ -1,15 +1,20 @@
-let loading = true,
-    users = [],
-    filterValue = 'abcdefghijklmnopqr'
-    onlineSection = document.getElementById("online-users"),
-    onlineUsers = [],
+let loading        = true,
+    users          = [],
+    onlineSection  = document.getElementById("online-users"),
+    onlineUsers    = [],
     offlineSection = document.getElementById("offline-users"),
-    offlineUsers = [],
+    offlineUsers   = [],
+    onlineRight    = document.getElementById("online-right"),
+    onlineLeft     = document.getElementById("online-left"),
+    offlineRight   = document.getElementById("offline-right"),
+    offlineLeft    = document.getElementById("offline-left"),
+    buttonList     = [onlineRight, onlineLeft, offlineRight, offlineLeft];
 
-(async function getUsers() {
+async function getUsers() {
     const response = await fetch("https://randomuser.me/api/?results=50");
-    users = await response.json();
-    users = users.results;
+
+    users   = await response.json();
+    users   = users.results;
     loading = false;
     
     users.forEach(user => {
@@ -25,15 +30,10 @@ let loading = true,
     document.getElementById("offline").innerHTML += ` (${offlineUsers.length})`;
     renderUsers();
     
-    let sliderPositionOnline = 0,
+    let sliderPositionOnline  = 0,
         sliderPositionOffline = 0,
-        sliderCountOnline = Math.ceil(onlineUsers.length/9),
-        sliderCountOffline = Math.ceil(offlineUsers.length/6),
-        onlineRight = document.getElementById("online-right"),
-        onlineLeft = document.getElementById("online-left"),
-        offlineRight = document.getElementById("offline-right"),
-        offlineLeft = document.getElementById("offline-left");
-        buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
+        sliderCountOnline     = Math.ceil(onlineUsers.length/9),
+        sliderCountOffline    = Math.ceil(offlineUsers.length/6);
 
     buttonList.forEach(button => {
         button.addEventListener("click", () => {
@@ -75,14 +75,16 @@ let loading = true,
             }
         });
     });
-
-})();
+};
 
 function renderUsers() {
 
+    onlineSection.querySelector(".overflow-content").innerHTML = '';
+    offlineSection.querySelector(".overflow-content").innerHTML = '';
+
     onlineUsers.forEach(user => {
         onlineSection.querySelector(".overflow-content").innerHTML += `<div class="card-online">
-                                                                            <p>${onlineUsers.indexOf(user)}</p>
+                                                                            <img src="/assets/storage/avatar.svg" alt="user image">
                                                                             <p>${user.name.first}</p>
                                                                             <p>${user.email}</p>
                                                                             <span class="circle-online"></span>
@@ -115,3 +117,15 @@ function renderSlider(name, position) {
             break;
     }
 }
+
+setTimeout(() => {
+
+    getUsers();
+    
+    onlineLeft.style.opacity   = 1;
+    onlineRight.style.opacity  = 1;
+    offlineLeft.style.opacity  = 1;
+    offlineRight.style.opacity = 1;
+
+}, 1500);
+

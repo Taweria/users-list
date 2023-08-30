@@ -110,8 +110,24 @@ main{
     background-color: transparent;
     border: none;
     cursor: pointer;
+    opacity: 0;
+    transition-duration: 0.7s;
 }
 
 button{
     z-index: 99;
+}
+
+.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+    height: 59px;
+}
+  
+@keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 80%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
 }
