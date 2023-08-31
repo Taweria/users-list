@@ -127,5 +127,5 @@ setTimeout(() => {
     offlineLeft.style.opacity  = 1;
     offlineRight.style.opacity = 1;
 
-}, 1500);
+}, 2500);
 
