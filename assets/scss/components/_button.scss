@@ -1,0 +1,22 @@
+button{
+    z-index: 99;
+}
+
+#online-left, #online-right, #offline-left, #offline-right{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition-duration: 0.7s;
+
+    & svg{
+        width: 50px;
+        height: 50px;
+
+        &:hover{
+            fill: $--neutralgrey;
+            transform: scale(1.5);
+            transition: all 0.5s ease-in-out;
+        }
+    }
+}

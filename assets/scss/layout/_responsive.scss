@@ -1,0 +1,23 @@
+@media only screen and (max-width: 1750px){
+    .card-online, .card-offline{
+        width: 40.5%;
+    }
+}
+
+@media only screen and (max-width: 1450px){
+    .card-online, .card-offline{
+        width: 38%;
+    }
+}
+
+@media only screen and (max-width: 1200px){
+    .card-online, .card-offline{
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 870px){
+    .card-online, .card-offline{
+        width: 75%;
+    }
+}

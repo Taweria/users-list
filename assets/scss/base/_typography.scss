@@ -1,0 +1,19 @@
+
+body{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: $--text;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Oswald', sans-serif;
+}
+
+h1{
+    color: $--neutralgrey;
+}
+
+h2, h3, h4, h5, h6{
+    color: $--darkgrey;
+}

@@ -1,0 +1,27 @@
+.card-online, .card-offline{
+    display: grid;
+    grid-template-columns: 1fr 3fr 4fr 1fr;
+    margin: 1rem 2rem;
+    gap: 1rem;
+    background-color: $--background-cells;
+    border-radius: 25px;
+    width: 25.5%;
+    padding: 1rem 2rem;
+    transition-duration: 0.6s;
+
+    .circle-online, .circle-offline{
+        width: 15px;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+        border: 2px $--darkgrey solid;
+        margin: auto;
+    }
+
+    .circle-online{
+        background-color: $--green;
+    }
+}
+
+.card-offline{
+    opacity: 50%;
+}
