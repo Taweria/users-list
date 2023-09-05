@@ -62,7 +62,7 @@ main{
 }
 
 
-.card-online, .card-offline{
+.card-online, .card-offline {
     display: grid;
     grid-template-columns: 1fr 3fr 4fr 1fr;
     margin: 1rem 2rem;
@@ -72,6 +72,10 @@ main{
     width: 25.5%;
     padding: 1rem 2rem;
     transition-duration: 0.6s;
+}
+.card-online.skeleton, .card-offline.skeleton {
+    height: 55px;
+    animation: skeleton-loading 1s linear infinite alternate;
 }
 
 .card-offline{
@@ -110,8 +114,18 @@ main{
     background-color: transparent;
     border: none;
     cursor: pointer;
+    opacity: 0;
 }
 
 button{
     z-index: 99;
+}
+
+@keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 80%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
 }

@@ -1,16 +1,18 @@
-let loading = true,
-    users = [],
-    filterValue = 'abcdefghijklmnopqr'
-    onlineSection = document.getElementById("online-users"),
+let users = [],
     onlineUsers = [],
-    offlineSection = document.getElementById("offline-users"),
     offlineUsers = [],
+    onlineSection = document.getElementById("online-users"),
+    offlineSection = document.getElementById("offline-users"),
+    onlineRight = document.getElementById("online-right"),
+    onlineLeft = document.getElementById("online-left"),
+    offlineRight = document.getElementById("offline-right"),
+    offlineLeft = document.getElementById("offline-left");
+    buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
 
-(async function getUsers() {
+async function getUsers() {
     const response = await fetch("https://randomuser.me/api/?results=50");
     users = await response.json();
     users = users.results;
-    loading = false;
     
     users.forEach(user => {
         if (user.gender == 'female') {
@@ -28,12 +30,7 @@ let loading = true,
     let sliderPositionOnline = 0,
         sliderPositionOffline = 0,
         sliderCountOnline = Math.ceil(onlineUsers.length/9),
-        sliderCountOffline = Math.ceil(offlineUsers.length/6),
-        onlineRight = document.getElementById("online-right"),
-        onlineLeft = document.getElementById("online-left"),
-        offlineRight = document.getElementById("offline-right"),
-        offlineLeft = document.getElementById("offline-left");
-        buttonList = [onlineRight, onlineLeft, offlineRight, offlineLeft];
+        sliderCountOffline = Math.ceil(offlineUsers.length/6);
 
     buttonList.forEach(button => {
         button.addEventListener("click", () => {
@@ -44,7 +41,7 @@ let loading = true,
                 else {
                     sliderPositionOnline++;
                 }
-                renderSlider('online', sliderPositionOnline);
+                renderSlider('online', sliderPositionOnline, sliderCountOnline);
             }
             else if (button == onlineLeft) {
                 if (sliderPositionOnline > 0) {
@@ -53,7 +50,7 @@ let loading = true,
                 else {
                     sliderPositionOnline = (sliderCountOnline-1);
                 }
-                renderSlider('online', sliderPositionOnline);
+                renderSlider('online', sliderPositionOnline, sliderCountOnline);
             }
             else if (button == offlineRight) {
                 if (sliderPositionOffline == (sliderCountOffline-1)) {
@@ -62,7 +59,7 @@ let loading = true,
                 else {
                     sliderPositionOffline++;
                 }
-                renderSlider('offline', sliderPositionOffline);
+                renderSlider('offline', sliderPositionOffline, sliderCountOffline);
             }
             else if (button == offlineLeft) {
                 if (sliderPositionOffline > 0) {
@@ -71,18 +68,20 @@ let loading = true,
                 else {
                     sliderPositionOffline = (sliderCountOffline-1);
                 }
-                renderSlider('offline', sliderPositionOffline);
+                renderSlider('offline', sliderPositionOffline, sliderCountOffline);
             }
         });
     });
 
-})();
+};
 
 function renderUsers() {
+    onlineSection.querySelector(".overflow-content").innerHTML = ''
+    offlineSection.querySelector(".overflow-content").innerHTML = ''
 
     onlineUsers.forEach(user => {
         onlineSection.querySelector(".overflow-content").innerHTML += `<div class="card-online">
-                                                                            <p>${onlineUsers.indexOf(user)}</p>
+                                                                            <img src="/assets/storage/avatar.svg" alt="user image">
                                                                             <p>${user.name.first}</p>
                                                                             <p>${user.email}</p>
                                                                             <span class="circle-online"></span>
@@ -99,19 +98,27 @@ function renderUsers() {
     });
 }
 
-function renderSlider(name, position) {
-    
-    let scrollIndex = 0;
+function renderSlider(name, position, step) {
+    const overflowContent = name === 'online' ? onlineSection.querySelector(".overflow-content").scrollWidth : offlineSection.querySelector(".overflow-content").scrollWidth;
+    let scrollIndex = position * (overflowContent / step+1);
 
     switch (name) {
         case 'online':
-            scrollIndex = position * 1620;
             onlineSection.querySelector(".overflow-content").style.transform = `translateX(-${scrollIndex}px)`;
             break;
 
         case 'offline':
-            scrollIndex = position * 1570;
             offlineSection.querySelector(".overflow-content").style.transform = `translateX(-${scrollIndex}px)`;
             break;
     }
 }
+
+setTimeout(() => {
+
+    getUsers();
+
+    onlineRight.style.opacity = 1;
+    onlineLeft.style.opacity = 1;
+    offlineRight.style.opacity = 1;
+    offlineLeft.style.opacity = 1;
+}, 2500);
